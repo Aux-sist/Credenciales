@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InicioController;
-
+use App\Http\Controllers\admin\PermisoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,3 +14,10 @@ use App\Http\Controllers\InicioController;
 |
 */
 Route::get('/', [InicioController::class, 'index']);
+
+Route::group(['prefix'=>'admin','namespace'=>'Admin'],function (){
+    Route::get('/permiso', [PermisoController::class, 'index'])->name('permiso');
+    Route::get('/permiso/crear', [PermisoController::class, 'create'])->name('crear_permiso');
+
+
+});
