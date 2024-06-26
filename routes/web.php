@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\admin\PermisoController;
+use App\Http\Controllers\Admin\MenuController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +19,7 @@ Route::get('/', [InicioController::class, 'index']);
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function (){
     Route::get('/permiso', [PermisoController::class, 'index'])->name('permiso');
     Route::get('/permiso/crear', [PermisoController::class, 'create'])->name('crear_permiso');
-
-
+    Route::get('/menu', [MenuController::class, 'index'])->name('menu');
+    Route::get('/menu/crear', [MenuController::class, 'create'])->name('crear_menu');
+    Route::post('menu', [MenuController::class, 'store'])->name('guardar_menu');
 });

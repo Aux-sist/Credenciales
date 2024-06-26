@@ -1,0 +1,4 @@
+label.requerido::after{
+    content: " *";
+    color: rgb(207, 13, 13);
+}

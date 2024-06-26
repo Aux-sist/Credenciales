@@ -19,8 +19,10 @@ class CreateMenuTable extends Migration
             $table->string('nombre',50);
             $table->string('url',100);
             $table->unsignedInteger('orden')->default(0);
-            $table->string('icono',50)->default(0);
+            $table->string('icono',50)->nullable();
             $table->timestamps();
+            $table->charset='utf8mb4';
+            $table->collation='utf8mb4_spanish_ci';
         });
     }
 
