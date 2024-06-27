@@ -37,7 +37,7 @@ var Biblioteca = function () {
                 }
             });
         },
-/*        notificaciones: function (mensaje, titulo, tipo) {
+        notificaciones: function (mensaje, titulo, tipo) {
             toastr.options = {
                 closeButton: true,
                 newestOnTop: true,
@@ -54,6 +54,6 @@ var Biblioteca = function () {
             } else if (tipo == 'warning') {
                 toastr.warning(mensaje, titulo);
             }
-        },*/
+        },
     }
 }()
