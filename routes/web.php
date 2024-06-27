@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\admin\PermisoController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\MenuRolController;
 use App\Http\Controllers\Admin\RolController;
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function (){
     Route::get('rol/{id}/editar', [RolController::class, 'edit'])->name('editar_rol');
     Route::put('rol/{id}', [RolController::class, 'update'])->name('actualizar_rol');
     Route::delete('rol/{id}', [RolController::class, 'destroy'])->name('eliminar_rol');
+    //Rutas menu rol//
+    Route::get('menu-rol', [MenuRolController::class, 'index'])->name('rol');
+    Route::post('menu-rol', [MenuRolController::class, 'store'])->name('guardar_menu_rol');
 });
