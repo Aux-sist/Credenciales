@@ -36,7 +36,7 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ValidacionMenu $request)
+    public function store(Request $request)
     {
         Menu::create($request->all());
         return redirect('admin/menu/crear')->with('mensaje','Menu creado con exito');
@@ -75,8 +75,8 @@ class MenuController extends Controller
      */
     public function update(ValidacionMenu $request, $id)
     {
-        dd($id);
-        //Menu::findOrFail($id)->update($request->all());
+    
+        Menu::findOrFail($id)->update($request->all());
         return redirect('admin/menu')->with('mensaje', 'Menu actualizado con exito');
     }
 
