@@ -4,15 +4,15 @@ Menu
 @endsection
 
 @section("styles")
-<link herf='{{asset("assets/js/jquery-nestable/jquery.nestable.css")}}' rel="stylesheet" type="text/css"/>
+<link herf="{{asset('assets/js/jquery-nestable/jquery.nestable.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section("scriptsPlugins")
-<script src='{{asset("assets/js/jquery-nestable/jquery.nestable.js")}}' type="text/javascript"></script>
+<script src="{{asset('assets/js/jquery-nestable/jquery.nestable.js')}}" type="text/javascript"></script>
 @endsection
 
 @section("scripts")
-<script src='{{asset("assets/pages/scripts/admin/menu/index.js")}}' type="text/javascript"></script>
+<script src="{{asset('assets/pages/scripts/admin/menu/index.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('contenido')
@@ -22,8 +22,9 @@ Menu
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">Menús</h3>
+                <a href="{{route('crear_menu')}}" class="btn btn-success btn-sm pull-right">Crear Menu</a>
             </div>    
-            <div class="card-body">
+            <div class="box-body">
                 @csrf
                 <div class="dd" id="nestable">
                     <ol class="dd-list">
