@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Libro;
 use Illuminate\Http\Request;
 
-class PermisoController extends Controller
+class LibroController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,9 @@ class PermisoController extends Controller
      */
     public function index()
     {
-        //
+        //can('listar-libros');
+        $datas = Libro::orderBy('id')->get();
+        return view('libro.index', compact('datas'));
     }
 
     /**
@@ -23,7 +26,7 @@ class PermisoController extends Controller
      */
     public function create()
     {
-        //
+        return view('libro.crear');
     }
 
     /**
@@ -34,7 +37,8 @@ class PermisoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($foto = Libro::setCaratula($request->foto_up))
+            $request->request->add(['Foto' => $foto]);
     }
 
     /**

@@ -37,7 +37,8 @@ class PermisoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         Permiso::create($request->all());
+        return redirect('admin/permiso/crear')->with('mensaje','Permiso creado con exito');
     }
 
     /**
@@ -59,7 +60,8 @@ class PermisoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Permiso::findOrFail($id);
+        return view("admin.permiso.editar", compact('data'));
     }
 
     /**
@@ -71,7 +73,8 @@ class PermisoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Permiso::findOrFail($id)->update($request->all());
+        return redirect('admin/permiso')->with('mensaje','Permiso actualizado con exito');
     }
 
     /**
@@ -80,8 +83,16 @@ class PermisoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->ajax()){
+            if(Permiso::destroy($id)){
+                return response()->json(['mensaje'=>'ok']);
+            }else{
+                return response()->json(['mensaje'=>'ng']);
+            }
+        } else {
+            abort(404);
+        }
     }
 }

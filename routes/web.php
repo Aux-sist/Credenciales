@@ -6,6 +6,8 @@ use App\Http\Controllers\admin\PermisoController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MenuRolController;
 use App\Http\Controllers\Admin\RolController;
+use App\Http\Controllers\LibroController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,8 +21,13 @@ use App\Http\Controllers\Admin\RolController;
 Route::get('/', [InicioController::class, 'index']);
 
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function (){
-    Route::get('/permiso', [PermisoController::class, 'index'])->name('permiso');
-    Route::get('/permiso/crear', [PermisoController::class, 'create'])->name('crear_permiso');
+    //Rutas de permiso//
+    Route::get('permiso', [PermisoController::class, 'index'])->name('permiso');
+    Route::get('permiso/crear', [PermisoController::class, 'create'])->name('crear_permiso');
+    Route::post('permiso', [PermisoController::class, 'store'])->name('guardar_permiso');
+    Route::get('permiso/{id}/editar', [PermisoController::class,'edit'])->name('editar_permiso');
+    Route::put('permiso/{id}', [PermisoController::class,'update'])->name('actualizar_permiso');
+    Route::delete('permiso/{id}', [PermisoController::class,'destroy'])->name('eliminar_permiso');
     //Rutas del menu//
     Route::get('/menu', [MenuController::class, 'index'])->name('menu');
     Route::get('/menu/crear', [MenuController::class, 'create'])->name('crear_menu');
@@ -39,4 +46,12 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function (){
     //Rutas menu rol//
     Route::get('menu-rol', [MenuRolController::class, 'index'])->name('menu_rol');
     Route::post('menu-rol', [MenuRolController::class, 'store'])->name('guardar_menu_rol');
+    
 });
+//Rutas libro//
+Route::get('libro', [LibroController::class, 'index'])->name('libro');
+Route::get('libro/crear', [LibroController::class, 'create'])->name('crear_libro');
+Route::post('libro', [LibroController::class, 'store'])->name('guardar_libro');
+Route::get('libro/{id}/editar}', [LibroController::class, 'edit'])->name('editar_libro');
+Route::get('libro/{id}', [LibroController::class, 'update'])->name('actualizar_libro');
+Route::delete('libro/{id}', [LibroController::class, 'destroy'])->name('eliminar_libro');

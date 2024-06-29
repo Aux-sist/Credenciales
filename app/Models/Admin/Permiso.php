@@ -2,11 +2,11 @@
 
 namespace App\Models\admin;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Permiso extends Model
 {
-    use HasFactory;
     protected $table = "permiso";
+    protected $fillable = ['nombre','slug'];
+    protected $guarded = ['id'];
 }
