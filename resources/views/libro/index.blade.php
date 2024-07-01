@@ -10,6 +10,7 @@ Libros
 @section('contenido')
 <div class="row">
     <div class="col-lg-12">
+    @csrf @method("post")
     @include('includes.form-error')
     @include('includes.mensaje')
     <div class="box box-danger">
@@ -22,28 +23,29 @@ Libros
             </div>
             </div>
             <div class="box-body">
-                <table class="table table-striped table-bordered table-hover">
+                <table class="table table-striped table-bordered table-hover" id="tabla-data">
                     <thead>
                         <tr>
                             <th>Titulo</th>
+                            <th>Cantidad</th>
                             <th class="width70"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($datas as $data)
                         <tr>
-                            <td>{{$data->titulo}}</td>
+                            <td><a href="{{route('ver_libro', $data)}}" class="ver-libro"> {{$data->titulo}}</a></td>
+                            <td>{{$data->cantidad}}</td>
                             <td>
-                                <a href='{{route("editar_libro", ["id" => $data->id])}}' class="btn-accion-tabla tooltipsC" title="Editar este registro">
+                                <a href="{{route('editar_libro', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>
-                                <form action='{{route("eliminar_libro", ["id" => $data->id])}}'  class="d-inline form-eliminar" method="POST">
+                                <form action="{{route('eliminar_libro', ['id' => $data->id])}}"  class="d-inline form-eliminar" method="POST">
                                     @csrf @method("delete")
                                     <button type="submit" class="btn-accion-tabla eliminar tooltipsC" title="Eliminar este registro">
                                         <i class="fa fa-fw fa-trash text-danger"></i>
                                     </button>
                                 </form>
-
                             </td>
                         </tr>
                         @endforeach
@@ -51,6 +53,22 @@ Libros
                 </table>
             </div>
     </div>
+    </div>
+</div>
+<div class="modal fade" id="nodal-ver-libro" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-tittle">Libro</h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

@@ -23,14 +23,14 @@
     </div>
 </div>
 <div class="form-group">
-    <label for="editorial" class="col-lg-3 control-label requerido">Editorial</label>
+    <label for="editorial" class="col-lg-3 control-label">Editorial</label>
     <div class="col-lg-8">
-    <input type="text"  name="editorial" id="editorial" class="form-control" value="{{old('editorial', $data->editorial?? '')}}" required />
+    <input type="text"  name="editorial" id="editorial" class="form-control" value="{{old('editorial', $data->editorial?? '')}}" />
     </div>
 </div>
 <div class="form-group">
-    <label for="foto" class="col-lg-3 control-label requerido">Foto</label>
-    <div class="col-lg-8">
-    <input type="file"  name="foto_up" id="foto" class="form-control" data-initial-preview='{{isset($data->imagen) ? Storage::url("imagenes/caratulas/$data->$imagen") : "http://www.placehod.it/200x150/EFEFEF/AAAAAA&text=Caratula+Libro"}}' accept="image/*" />
+    <label for="foto" class="col-lg-3 control-label">Foto</label>
+    <div class="col-lg-5">
+        <input type="file" name="foto_up" id="foto" data-initial-preview='{{isset($data->foto) ? Storage::url("imagenes/caratulas/$data->foto") : "http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=Caratula+Libro"}}' accept="image/*"/>
     </div>
 </div>

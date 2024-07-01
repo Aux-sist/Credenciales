@@ -52,6 +52,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function (){
 Route::get('libro', [LibroController::class, 'index'])->name('libro');
 Route::get('libro/crear', [LibroController::class, 'create'])->name('crear_libro');
 Route::post('libro', [LibroController::class, 'store'])->name('guardar_libro');
-Route::get('libro/{id}/editar}', [LibroController::class, 'edit'])->name('editar_libro');
-Route::get('libro/{id}', [LibroController::class, 'update'])->name('actualizar_libro');
+Route::get('libro/{libro}', [LibroController::class, 'show'])->name('ver_libro');
+Route::get('libro/{id}/editar', [LibroController::class, 'edit'])->name('editar_libro');
+Route::put('libro/{id}', [LibroController::class, 'update'])->name('actualizar_libro');
 Route::delete('libro/{id}', [LibroController::class, 'destroy'])->name('eliminar_libro');

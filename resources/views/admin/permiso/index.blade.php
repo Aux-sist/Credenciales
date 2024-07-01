@@ -29,11 +29,11 @@ Permisos
                 <tbody>
                     @foreach($permisos as $permiso)
                     <tr>
-                        <th>{{$permiso->id}}</th>
-                        <th>{{$permiso->nombre}}</th>
-                        <th>{{$permiso->slug}}</th>
+                        <td>{{$permiso->id}}</td>
+                        <td>{{$permiso->nombre}}</td>
+                        <td>{{$permiso->slug}}</td>
                         <th> 
-                            <a href="{{route('editar_permiso', ['id'=> $permiso -> id])}}" class="btn-accion-table tooltipsC" tittle="Editar el registro">
+                            <a href="{{route('editar_permiso', ['id'=> $permiso -> id])}}" class="btn-accion-table tooltipsC" title="Editar el registro">
                                 <i class="fa fa-edit"></i>
                             </a>
                             <form action="{{route('eliminar_permiso',  ['id' => $permiso->id])}}" class="d-inline form-eliminar" method="POST">

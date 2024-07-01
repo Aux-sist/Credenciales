@@ -1,13 +1,13 @@
 $(document).ready(function (){
-    Biblioteca.validacionGeneral('forn-general');
+    Biblioteca.validacionGeneral('form-general');
     $('#foto').fileinput({
         language: 'es',
         allowedFileExtensions:['jpg','jpeg','png'],
-        maxFileSize: 1080,
+        maxFileSize: 1000,
         showUpload: false,
         showClose: false,
         InitialPreviewAsData: true,
-        dropZoneEnable: false,
-        theme: "fa",
+        dropZoneEnabled: false,
+        theme: "fas",
     });
-})
+});
