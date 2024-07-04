@@ -8,6 +8,6 @@ $(document).ready(function (){
         showClose: false,
         InitialPreviewAsData: true,
         dropZoneEnabled: false,
-        theme: "fas",
+        theme: "fa",
     });
 });

@@ -4,13 +4,13 @@ Libros
 @endsection
 
 @section("scripts")
-<script src= '{{asset("assets/pages/scripts/libro/index.js")}}'type="text/javascripts"></script>
+<script src= '{{asset("assets/pages/scripts/libro/index.js")}}'type="text/javascript"></script>
 @endsection
 
 @section('contenido')
 <div class="row">
     <div class="col-lg-12">
-    @csrf @method("post")
+    @csrf 
     @include('includes.form-error')
     @include('includes.mensaje')
     <div class="box box-danger">
@@ -34,7 +34,7 @@ Libros
                     <tbody>
                         @foreach ($datas as $data)
                         <tr>
-                            <td><a href="{{route('ver_libro', $data)}}" class="ver-libro"> {{$data->titulo}}</a></td>
+                            <td><a href="{{route('ver_libro', $data)}}" class="ver-libro">{{$data->titulo}}</a></td>
                             <td>{{$data->cantidad}}</td>
                             <td>
                                 <a href="{{route('editar_libro', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
@@ -52,10 +52,10 @@ Libros
                     </tbody>
                 </table>
             </div>
-    </div>
+        </div>
     </div>
 </div>
-<div class="modal fade" id="nodal-ver-libro" tabindex="-1">
+<div class="modal fade" id="modal-ver-libro" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

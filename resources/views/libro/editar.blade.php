@@ -10,7 +10,7 @@ Libros
 @section("scriptsPlugins")
 <script src="{{asset('assets/js/bootsprat-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/js/bootsprat-fileinput/js/locales/es.js')}}" type="text/javascript"></script>
-<script src="{{asset('assets/js/bootsprat-fileinput/themes/fa6/theme.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/js/bootsprat-fileinput/themes/fa5/theme.min.js')}}" type="text/javascript"></script>
 @endsection
 
 @section("scripts")
@@ -20,22 +20,21 @@ Libros
 @section('contenido')
 <div class="row">
     <div class="col-lg-12">
-    @include('includes.form-error')
         @include('includes.mensaje')
-        <div class="box box-warning">
+        <div class="box box-danger">
             <div class="box-header with-border">
                 <h3 class="box-title">Crear Libros</h3>
                 <a href="{{route('libro')}}" class="btn btn-info btn-sm pull-right">Listado</a>
             </div> 
-            <form action='{{route("guardar_libro")}}' id="form-general"  class="form-horizontal" method="POST" enctype="multipart/form-data">
-                @csrf 
+            <form action='{{route("actualizar_libro", $data->id)}}' id="form-general"  class="form-horizontal" method="POST" enctype="multipart/form-data">
+                @csrf @method("put")
             <div class="box-body">
                     @include('libro.form')
             </div>
                 <div class="box-footer">
                     <div class="col-lg-3"></div>
                     <div class="col-lg-6">
-                        @include("includes.boton-form-crear")
+                        @include("includes.boton-form-editar")
                     </div>
                 </div>
             </form>

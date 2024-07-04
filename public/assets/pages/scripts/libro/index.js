@@ -3,7 +3,7 @@ $(document).ready(function(){
         event.preventDefault();
         const form = $(this);
         swal({
-            tittle:'Seguro de eliminar?',
+            title:'¿Está seguro que desea eliminar el registro?',
             text:"Es irreversible",
             icon:'warning',
             buttons:{
