@@ -69,10 +69,10 @@ class DriveService
         return $this->driveService->files->create($archivo);
     }*/
 
-    public function subirArchivo(string $nombreArchivo, string $rutaArchivo /*,string $parentId = ''*/): DriveFile
+    public function subirArchivo(string $foto, string $rutaArchivo /*,string $parentId = ''*/): DriveFile
     {
         $archivo = new Drive\DriveFile();
-        $archivo->setName($nombreArchivo);
+        $archivo->setName($foto);
         
         /*
         if ($parentId) {

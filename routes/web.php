@@ -6,8 +6,8 @@ use App\Http\Controllers\admin\PermisoController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MenuRolController;
 use App\Http\Controllers\Admin\RolController;
+use App\Http\Controllers\GoogleDriveController;
 use App\Http\Controllers\LibroController;
-use App\Services\DriveService;
 
 //use App\Services\DriveService;
 
@@ -54,7 +54,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function (){
 //Rutas libro//
 Route::get('libro', [LibroController::class, 'index'])->name('libro');
 Route::get('libro/crear', [LibroController::class, 'create'])->name('crear_libro');
-Route::post('libro', [DriveService::class, 'subirArchivo'])->name('guardar_libro');
+Route::post('libro', [GoogleDriveController::class, 'guardar'])->name('guardar_libro');
 Route::post('libro/{libro}', [LibroController::class, 'show'])->name('ver_libro');
 Route::get('libro/{id}/editar', [LibroController::class, 'edit'])->name('editar_libro');
 Route::put('libro/{id}', [LibroController::class, 'update'])->name('actualizar_libro');

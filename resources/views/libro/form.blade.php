@@ -2,7 +2,7 @@
     <label for="titulo" class="col-lg-3 control-label requerido">Titulo</label>
     <div class="col-lg-8">
     <input type="text"  name="titulo" id="titulo" class="form-control" value="{{old('titulo', $data->titulo?? '')}}" required />
-    </div>
+    </div>      
 </div>
 <div class="form-group">
     <label for="isbn" class="col-lg-3 control-label requerido">Isbn</label>
