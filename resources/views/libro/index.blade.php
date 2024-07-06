@@ -13,7 +13,7 @@ Libros
     @csrf 
     @include('includes.form-error')
     @include('includes.mensaje')
-    <div class="box box-danger">
+    <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title">Libros</h3>
             <div class="box-tools pull-right">
@@ -28,6 +28,7 @@ Libros
                         <tr>
                             <th>Titulo</th>
                             <th>Cantidad</th>
+                            <th>Foto</th>
                             <th class="width70"></th>
                         </tr>
                     </thead>
@@ -36,6 +37,7 @@ Libros
                         <tr>
                             <td><a href="{{route('ver_libro', $data)}}" class="ver-libro">{{$data->titulo}}</a></td>
                             <td>{{$data->cantidad}}</td>
+                            <td>{{$data->foto}}</td>
                             <td>
                                 <a href="{{route('editar_libro', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
                                     <i class="fa fa-fw fa-pencil"></i>

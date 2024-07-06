@@ -58,4 +58,4 @@ Route::post('libro', [GoogleDriveController::class, 'guardar'])->name('guardar_l
 Route::post('libro/{libro}', [LibroController::class, 'show'])->name('ver_libro');
 Route::get('libro/{id}/editar', [LibroController::class, 'edit'])->name('editar_libro');
 Route::put('libro/{id}', [LibroController::class, 'update'])->name('actualizar_libro');
-Route::delete('libro/{id}', [LibroController::class, 'destroy'])->name('eliminar_libro');
+Route::delete('libro/{id}', [GoogleDriveController::class, 'eliminar'])->name('eliminar_libro');

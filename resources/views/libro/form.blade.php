@@ -31,6 +31,7 @@
 <div class="form-group">
     <label for="foto" class="col-lg-3 control-label">Foto</label>
     <div class="col-lg-5">
-        <input type="file" name="foto_up" id="foto" data-initial-preview="{{isset($data->foto) ? Storage::url('imagenes/caratulas/$data->foto'):'https://www.placehold.it/200x150/EFEFEF/AAAAAA&text=Caratula'}}" accept="image/*"/>
+        <input type="file" name="foto_up" id="foto" data-initial-preview="{{isset($data->foto) ? Storage::url('imagenes/caratulas/$data->foto'):
+        'https://www.placehold.it/200x150/EFEFEF/AAAAAA&text=Caratula'}}" accept="image/*"/>
     </div>
 </div>

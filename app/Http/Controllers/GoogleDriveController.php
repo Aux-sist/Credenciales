@@ -7,6 +7,7 @@ use App\Services\DriveService;
 use Directory;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 
 class GoogleDriveController extends Controller
 {
@@ -29,21 +30,24 @@ class GoogleDriveController extends Controller
         return redirect()->route('libro')->with('mensaje','el libro se ha creado');
     }
 
-    public function subir(DriveService $driveService, UploadedFile $foto)
+    public function mostrar(Request $request)
     {
-        /*$extension = ".{$foto->getClientOriginalExtension()}";
-        $nombreImagen = basename($foto->getClientOriginalName(), $extension);
-        $rutaLocal = storage_path(). "/$nombreImagen";
-        $directorioLocal = Directory::make($rutaLocal);
-        $rutaImagen = "$directorioLocal/$nombreImagen";
 
-        $foto->move($directorioLocal, $nombreImagen);
-
-
-        unlink($rutaImagen);
-        Directory::remove($rutaLocal);
-
-*/
     }
 
+    public function eliminar(Request $request, $id)
+    {
+        $idDrive = DB::table('libro')->where('id', $request->id)->value('foto');        
+        $driveService = new DriveService();
+        $driveService->iniciarConfiguracion();
+        $driveService->eliminarArchivo($idDrive); 
+       
+        new Libro();
+        Libro::findOrFail($id);
+        if (Libro::destroy($id)){
+            return response()->json(['mensaje'=>'ok']);
+        } else {
+            return response()->json(['mensaje'=>'ng']);
+        }
+    }
 }

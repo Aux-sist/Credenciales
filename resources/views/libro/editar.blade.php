@@ -26,7 +26,8 @@ Libros
                 <h3 class="box-title">Crear Libros</h3>
                 <a href="{{route('libro')}}" class="btn btn-info btn-sm pull-right">Listado</a>
             </div> 
-            <form action='{{route("actualizar_libro", $data->id)}}' id="form-general"  class="form-horizontal" method="POST" enctype="multipart/form-data">
+            <form action='{{route("actualizar_libro", $data->id)}}' id="form-general"  
+            class="form-horizontal" method="POST" enctype="multipart/form-data">
                 @csrf @method("put")
             <div class="box-body">
                     @include('libro.form')
