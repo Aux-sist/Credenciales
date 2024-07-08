@@ -15,8 +15,7 @@ class LibroController extends Controller
      */
     public function index()
     {
-        //can('listar-libros');
-        $datas = Libro::orderBy('id')->get();
+        $datas = Libro::orderBy('id')->paginate(5);
         return view('libro.index', compact('datas'));
     }
 
@@ -53,11 +52,7 @@ class LibroController extends Controller
      */
     public function show(Request $request, Libro $libro)
     {
-        if ($request->ajax()){
             return view('libro.ver', compact('libro'));
-        } else {
-            abort(404);
-        }
     }
 
     /**

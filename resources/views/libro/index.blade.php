@@ -57,6 +57,7 @@ Libros
         </div>
     </div>
 </div>
+ {{ $datas->links() }}
 <div class="modal fade" id="modal-ver-libro" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">

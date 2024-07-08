@@ -22,7 +22,7 @@ Libros
     <div class="col-lg-12">
     @include('includes.form-error')
         @include('includes.mensaje')
-        <div class="box box-warning">
+        <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">Crear Libros</h3>
                 <a href="{{route('libro')}}" class="btn btn-info btn-sm pull-right">Listado</a>

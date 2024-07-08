@@ -21,9 +21,9 @@ Libros
 <div class="row">
     <div class="col-lg-12">
         @include('includes.mensaje')
-        <div class="box box-danger">
+        <div class="box box-warning">
             <div class="box-header with-border">
-                <h3 class="box-title">Crear Libros</h3>
+                <h3 class="box-title">Editar Libros</h3>
                 <a href="{{route('libro')}}" class="btn btn-info btn-sm pull-right">Listado</a>
             </div> 
             <form action='{{route("actualizar_libro", $data->id)}}' id="form-general"  
