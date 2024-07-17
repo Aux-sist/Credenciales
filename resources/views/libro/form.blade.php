@@ -31,11 +31,14 @@
 <div class="form-group">
     <label for="foto" class="col-lg-3 control-label">Foto</label>
     <div class="col-lg-5">
-        <input type="file" name="foto_up" id="foto" data-initial-preview="{{isset($data->id) ? :
+        <input type="file" name="foto_up" id="foto" data-toggle="modal" href="#div-modal"  data-initial-preview="
+        {{isset($data->id) ? DB::table('libro')->where('id', $data->id)->value('drive_id_original'):
         'https://www.placehold.it/200x150/EFEFEF/AAAAAA&text=Caratula'}}" accept="image/*"/>
     </div>
+    
 </div>
-
+<div id="wrapper">
+</div>
 <!--{{--<div class="form-group">
     <label for="foto" class="col-lg-3 control-label">Foto</label>
     <div class="col-lg-5">

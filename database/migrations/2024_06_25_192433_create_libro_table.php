@@ -21,6 +21,9 @@ class CreateLibroTable extends Migration
             $table->unsignedTinyInteger('cantidad');
             $table->string('editorial',50)->nullable();
             $table->string('foto',100)->nullable();
+            $table->string('drive_id_original',100)->nullable();
+            $table->string('drive_id_recortada',100)->nullable();
+            $table->string('drive_id_miniatura',100)->nullable();
             $table->timestamps();
             $table->charset='utf8mb4';
             $table->collation='utf8mb4_spanish_ci';

@@ -21,11 +21,11 @@ use App\Http\Controllers\LibroController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [InicioController::class, 'index']);
+Route::get('/', [LibroController::class, 'index']);
 
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function (){
     //Rutas de permiso//
-    Route::get('permiso', [PermisoController::class, 'index'])->name('permiso');
+    Route::get('ex', [PermisoController::class, 'index'])->name('permiso');
     Route::get('permiso/crear', [PermisoController::class, 'create'])->name('crear_permiso');
     Route::post('permiso', [PermisoController::class, 'store'])->name('guardar_permiso');
     Route::get('permiso/{id}/editar', [PermisoController::class,'edit'])->name('editar_permiso');

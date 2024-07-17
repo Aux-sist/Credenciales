@@ -28,16 +28,16 @@ Libros
                         <tr>
                             <th>Titulo</th>
                             <th>Cantidad</th>
-                            <th>Foto</th>
+                            <th>Editorial</th>
                             <th class="width70"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($datas as $data)
                         <tr>
-                            <td><a href="{{route('ver_libro', $data)}}" class="ver-libro">{{$data->titulo}}</a></td>
+                            <td>{{$data->titulo}}</td>
                             <td>{{$data->cantidad}}</td>
-                            <td>{{$data->foto}}</td>
+                            <td>{{$data->editorial}}</td>
                             <td>
                                 <a href="{{route('editar_libro', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
                                     <i class="fa fa-fw fa-pencil"></i>
@@ -48,6 +48,7 @@ Libros
                                         <i class="fa fa-fw fa-trash text-danger"></i>
                                     </button>
                                 </form>
+                            
                             </td>
                         </tr>
                         @endforeach

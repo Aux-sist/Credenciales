@@ -56,7 +56,7 @@ class DriveService
         $this->driveService = new Drive($cliente);
     }
 
-  /*  public function crearDirectorio(string $nombre, string $parentId = ''): DriveFile
+   public function crearDirectorio(string $nombre, string $parentId = ''): DriveFile
     {
         $archivo = new Drive\DriveFile();
         $archivo->setName($nombre);
@@ -67,17 +67,17 @@ class DriveService
         }
 
         return $this->driveService->files->create($archivo);
-    }*/
+    }
 
-    public function subirArchivo(string $foto, string $rutaArchivo /*,string $parentId = ''*/): DriveFile
+    public function subirArchivo(string $foto, string $rutaArchivo ,string $parentId = ''): DriveFile
     {
         $archivo = new Drive\DriveFile();
         $archivo->setName($foto);
         
-        /*
+        
         if ($parentId) {
             $archivo->setParents([$parentId]);
-        }*/
+        }
 
         return $this->driveService->files->create($archivo, [
             'data' => file_get_contents($rutaArchivo),
@@ -154,7 +154,7 @@ class DriveService
         return $this->driveService->files->update($idDrive, $archivo);
     }
 
-   /* public function visualizar(string $idDrive): void
+   public function visualizar(string $idDrive): void
     {
         $metaArchivo = $this->buscarArchivo($idDrive);
         $mime = $metaArchivo->getMimeType();
@@ -168,7 +168,7 @@ class DriveService
 
         fwrite($out, $archivo->getBody());
         fclose($out);
-    }*/
+    }
 
     public function archivo(string $idDrive, array $params = [])
     {
