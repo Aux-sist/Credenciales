@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MenuRolController;
 use App\Http\Controllers\Admin\RolController;
 use App\Http\Controllers\GoogleDriveController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LibroController;
 
 //use App\Services\DriveService;
@@ -60,3 +61,4 @@ Route::get('libro/{id}/editar', [LibroController::class, 'edit'])->name('editar_
 Route::put('libro/{id}', [GoogleDriveController::class, 'actualizar'])->name('actualizar_libro');
 //Route::put('libro/{id}', [LibroController::class, 'update'])->name('actualizar_libro');
 Route::delete('libro/{id}', [GoogleDriveController::class, 'eliminar'])->name('eliminar_libro');
+Route::post('/crop_image', [ImageController::class,'crop_image'])->name('guardar_img');

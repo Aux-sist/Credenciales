@@ -61,7 +61,7 @@ $btncrop.addEventListener("click", function (){
             //base64data es un string del tipo: data:image/png;base64,iVBORw0KGgoAAAA....
             console.log("base64data", base64data)
             //en mi caso estoy trabajando con php en el back pero puede ser cualquier url
-            const url = "http://credenciales.test"
+            const url = "http://credenciales.test/admin/index.php?f=crop_first&nohome=1"
 
             fetch(url, {
                 method: "POST",

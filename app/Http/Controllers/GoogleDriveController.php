@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\DB;
 
 class GoogleDriveController extends Controller
 {
+   public function crop_image(Request $request)
+    {
+        $file=$request->file("image");
+        $recortado=$file->getClientOriginalName();
+        $file->move(storage_path("imagen"),$recortado);
+    }
     public function guardar(ValidacionLibro $request)
     {
         $archivo = $request->file('foto_up');
@@ -21,12 +27,13 @@ class GoogleDriveController extends Controller
         $folderID=$driveFolder->getId();
         $name=$names.'_original';
         $archivosubido= $driveService->subirArchivo($name, storage_path("imagen")."/".$names,$folderID);
-        $nameR=$names.'_credencial';
-        $archivosubidoR= $driveService->subirArchivo($nameR, storage_path("imagen")."/".$names,$folderID);
+        $recortado=$names.'_credencial';
+        $archivosubidoR= $driveService->subirArchivo($recortado, storage_path("imagen")."/".$names,$folderID);
         $nameM=$names.'_pequeña';
         $archivosubidoM= $driveService->subirArchivo($nameM, storage_path("imagen")."/".$names,$folderID);
 
         unlink(storage_path("imagen")."/".$names);
+        unlink(storage_path("imagen")."/".$recortado);
         
         $libro = new Libro();
         $libro->create([

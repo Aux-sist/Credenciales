@@ -9,7 +9,7 @@
 <link href="/assets/js/cropper-js/cropper.css" rel="stylesheet" type="text/css" />
 @endsection
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" type="text/javascript"></script>
     <link href="/assets/js/cropper-js/cropper.css" rel="stylesheet" type="text/css" />
 </head>
@@ -27,6 +27,7 @@
     <span id="span-uploaded"></span>
 </div>
 <div class="modal fade" id="div-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
