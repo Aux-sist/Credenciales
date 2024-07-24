@@ -36,7 +36,7 @@ $file.addEventListener("change", function (e) {
 
 const $btncrop = document.getElementById("btn-crop")
 
-$btncrop.addEventListener("click", function (){
+/*$btncrop.addEventListener("click", function (){
     const canvas = cropper.getCroppedCanvas()
     canvas.toBlob(function (blob){
         const reader = new FileReader()
@@ -80,41 +80,14 @@ $btncrop.addEventListener("click", function (){
             })
         }
     })
-})
-/*$btncrop.addEventListener("click", function (){
+})*/
+
+$btncrop.addEventListener("click", function (){
     const canvas = cropper.getCroppedCanvas()
-    const WITDH = 80
-    let image_file = canvas.target.files[0]
-    const reader = new FileReader
-    reader.readAsDataURL(image_file)
-    reader.onload=(canvas)=>{
-        let image_url = canvas.target.result
-
-        let image = document.createElement("img")
-        image.src = image_url
-
-        image.onload = (e) =>{
-            let canvas = document.createElement("canvas")
-            let ratio = WITDH/e.target.width
-            canvas.width = WITDH
-            canvas.witdh = WITDH
-            canvas.height = e.target.height * ratio
-
-            const context = canvas.getContext("2d")
-            context.drawImage(image, 0, 0, canvas.width, canvas.height)
-
-            let new_image_url=context.canvas.toDataURL("image/png",90)
-
-            let new_image = document.createElement("img")
-            new_image.src=new_image_url
-            document.getElementById("wrapper").appendChild(new_image)
-            console. log(new_image)
-        }
-    }
-        
     canvas.toBlob(function (blob){
         const reader = new FileReader()
         reader.readAsDataURL(blob)
+        console.log(blob)
         reader.onloadend = function (){
             const base64data = reader.result
             console.log("base64data", base64data)
@@ -128,29 +101,82 @@ $btncrop.addEventListener("click", function (){
             {
                 dataArr[n]=dataStr.charCodeAt(n)
             }
-                var file=new File([dataArr], 'FileM.png',{type:mime})
+                var file=new File([dataArr], 'FileR.png',{type:mime})
                 console.log(file)
+                formData(file)
+                resize(file)
+            //base64ToImage(base64data)
 
-            var formData = new FormData()
-            formData.append('image', file)
-
-            var basePath = $('body').data('basePath')
-            console.log("path", basePath)
-            $.ajax({
-               
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: "POST",
-                data: formData,
-                url: basePath+'/crop_image',
-                contentType: false,
-                processData: false,
-            })
         }
     })
-})*/
-     
+})
+
+function base64ToImage(base64data){
+    const arr = base64data.split(',');
+    const mime=arr[0].match(/:(.*?);/)[1]
+    const data=arr[1]
+    const dataStr = window.atob(data);
+            let n = dataStr.length;
+            const dataArr = new Uint8Array(n);
+            while(n--)
+    {
+        dataArr[n]=dataStr.charCodeAt(n)
+    }
+        var file=new File([dataArr], 'FileM.png',{type:mime})
+        console.log(file)
+        formData(file)
+}
+
+function resize(file){
+    const WITDH = 80
+    let reader = new FileReader
+    reader.readAsDataURL(file)
+    reader.onload = (event) =>{
+        let image_url = event.target.result
+        let image = document.createElement("img")
+        image.src = image_url
+        image.onload = (e) => {
+            let canvas = document.createElement("canvas")
+            let ratio = WITDH / e.target.width
+            canvas.width = WITDH
+            canvas.height = e.target.height * ratio
+            
+            const context = canvas.getContext("2d")
+            context.drawImage(image, 0, 0, canvas.width, canvas.height)
+
+            let base64data=canvas.toDataURL('image/png',90)
+            
+            base64ToImage(base64data)
+        }
+    }
+}
+
+function formData(file){
+    var formData = new FormData()
+    formData.append('image', file)
+    ajax(formData)
+}
+
+function ajax(formData){
+    var basePath = $('body').data('basePath')
+    console.log("path", basePath)
+    $.ajax({
+               
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "POST",
+        data: formData,
+        url: basePath+'/crop_image',
+        contentType: false,
+        processData: false,
+        success: function(data) { 
+            $("#div-modal").modal('hide')
+        },
+    })
+   
+}
+
 let cropper = null
 $modal.addEventListener("shown.bs.modal", function (){
     console.log("modal.on-show")

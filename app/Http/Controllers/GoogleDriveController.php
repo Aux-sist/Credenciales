@@ -10,14 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class GoogleDriveController extends Controller
 {
-   public function crop_image(Request $request)
-    {
-        $file=$request->file("image");
-        $recortado=$file->getClientOriginalName();
-        $file->move(storage_path("imagen"),$recortado);
-    }
     public function guardar(ValidacionLibro $request)
     {
+        $recortado = "FileR.png";
+        $miniatura = "FileM.png";
         $archivo = $request->file('foto_up');
         $names=$archivo->getClientOriginalName();
         $archivo->move(storage_path("imagen"),$names);
@@ -27,14 +23,15 @@ class GoogleDriveController extends Controller
         $folderID=$driveFolder->getId();
         $name=$names.'_original';
         $archivosubido= $driveService->subirArchivo($name, storage_path("imagen")."/".$names,$folderID);
-        $recortado=$names.'_credencial';
-        $archivosubidoR= $driveService->subirArchivo($recortado, storage_path("imagen")."/".$names,$folderID);
-        $nameM=$names.'_pequeña';
-        $archivosubidoM= $driveService->subirArchivo($nameM, storage_path("imagen")."/".$names,$folderID);
+        $nameR=$names.'_recortada';
+        $archivosubidoR= $driveService->subirArchivo($nameR, storage_path("imagen")."/".$recortado,$folderID);
+        $nameM=$names.'_miniatura';
+        $archivosubidoM= $driveService->subirArchivo($nameM, storage_path("imagen")."/".$miniatura,$folderID);
 
         unlink(storage_path("imagen")."/".$names);
         unlink(storage_path("imagen")."/".$recortado);
-        
+        unlink(storage_path("imagen")."/".$miniatura);
+
         $libro = new Libro();
         $libro->create([
                         'titulo'=>$request->titulo , 
@@ -60,30 +57,29 @@ class GoogleDriveController extends Controller
 
     public function actualizar(Request $request, $id)
     {   //$idDrive = Libro::select(['foto'])->where('id', $request->id)->first(); 
-        $idDrive = DB::table('libro')->where('id', $request->id)->value('drive_id_original');
-        $idDriveR = DB::table('libro')->where('id', $request->id)->value('drive_id_recortada');
-        $idDriveM = DB::table('libro')->where('id', $request->id)->value('drive_id_miniatura');
+        $idDrive = DB::table('libro')->where('id', $request->id)->value('foto');
         $driveService = new DriveService();
         $driveService->iniciarConfiguracion();
         $driveService->eliminarArchivo($idDrive);
-        $driveService->eliminarArchivo($idDriveR);
-        $driveService->eliminarArchivo($idDriveM);
-
-        $folderID = DB::table('libro')->where('id', $request->id)->value('foto');
-        
+        $recortado = "FileR.png";
+        $miniatura = "FileM.png";
         $archivo = $request->file('foto_up');
         $names=$archivo->getClientOriginalName();
         $archivo->move(storage_path("imagen"),$names);
         $driveService = new DriveService();
         $driveService->iniciarConfiguracion();
+        $driveFolder= $driveService->crearDirectorio($names,);
+        $folderID=$driveFolder->getId();
         $name=$names.'_original';
         $archivosubido= $driveService->subirArchivo($name, storage_path("imagen")."/".$names,$folderID);
-        $nameR=$names.'_credencial';
-        $archivosubidoR= $driveService->subirArchivo($nameR, storage_path("imagen")."/".$names,$folderID);
-        $nameM=$names.'_pequeña';
-        $archivosubidoM= $driveService->subirArchivo($nameM, storage_path("imagen")."/".$names,$folderID);
+        $nameR=$names.'_recortada';
+        $archivosubidoR= $driveService->subirArchivo($nameR, storage_path("imagen")."/".$recortado,$folderID);
+        $nameM=$names.'_miniatura';
+        $archivosubidoM= $driveService->subirArchivo($nameM, storage_path("imagen")."/".$miniatura,$folderID);
 
         unlink(storage_path("imagen")."/".$names);
+        unlink(storage_path("imagen")."/".$recortado);
+        unlink(storage_path("imagen")."/".$miniatura);
         
         new Libro();
         $libro =Libro::findOrFail($id);
@@ -101,14 +97,6 @@ class GoogleDriveController extends Controller
 
     public function eliminar(Request $request, $id)
     {
-        /*$idDrive = DB::table('libro')->where('id', $request->id)->value('drive_id_original');
-        $idDriveR = DB::table('libro')->where('id', $request->id)->value('drive_id_recortada');
-        $idDriveM = DB::table('libro')->where('id', $request->id)->value('drive_id_miniatura');
-        $driveService = new DriveService();
-        $driveService->iniciarConfiguracion();
-        $driveService->eliminarArchivo($idDrive);
-        $driveService->eliminarArchivo($idDriveR);
-        $driveService->eliminarArchivo($idDriveM);*/
         $idDrive = DB::table('libro')->where('id', $request->id)->value('foto');
         $driveService = new DriveService();
         $driveService->iniciarConfiguracion();

@@ -5,7 +5,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">x</span>
                         </button>
-                        <h4 class="modal-title" id="modalLabel">Crop image</h4>
+                        <h4 class="modal-title" id="modalLabel">Recorta la imagen</h4>
                     </div>
                     <div class="modal-body">
                         <div class="img-container">
@@ -20,8 +20,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" id="btn-crop">Crop</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="btn-crop">Recortar</button>
                     </div>
                 </div>
             </div>
