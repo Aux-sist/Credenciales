@@ -17,6 +17,9 @@ Libros
             <div class="box-header with-border">
               <h3 class="box-title">Libros</h3>
             <div class="box-tools pull-right">
+                <a href="{{route('crear_libros')}}" class="btn btn-block btn-danger btn-sm">
+                    <i class="fa fa-fw fa-plus-circle"></i> Varios registros
+                </a>
                 <a href="{{route('crear_libro')}}" class="btn btn-block btn-success btn-sm">
                     <i class="fa fa-fw fa-plus-circle"></i> Nuevo registro
                 </a>
@@ -58,21 +61,5 @@ Libros
         </div>
     </div>
 </div>
- {{ $datas->links() }}
-<div class="modal fade" id="modal-ver-libro" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <h4 class="modal-tittle">Libro</h4>
-            </div>
-            <div class="modal-body"></div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
+{{ $datas->links() }}
 @endsection

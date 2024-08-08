@@ -4,11 +4,12 @@ const $modal = document.getElementById("div-modal")
 
 //si deseamos interactuar con el modal usando los metodos nativos de bootstrap5
 //debemos construirlo pasando el elemento. En nuestro caso .show() y .hide()
-const objmodal = new bootstrap.Modal($modal, {  
+const objmodal = new bootstrap.Modal($modal, {
     keyboard: false
 })
 
 $file.addEventListener("change", function (e) {
+
     const load_image = function (url){
         $image.src = url
         objmodal.show()
@@ -20,7 +21,6 @@ $file.addEventListener("change", function (e) {
         const objfile = files[0]
         
         if (URL){
-            //crea una url del estilo: blob:http://localhost:1024/129e832d-2545-471f-8e70-20355d8e33eb
             const url = URL.createObjectURL(objfile)
             load_image(url)
         }
@@ -36,93 +36,54 @@ $file.addEventListener("change", function (e) {
 
 const $btncrop = document.getElementById("btn-crop")
 
-/*$btncrop.addEventListener("click", function (){
-    const canvas = cropper.getCroppedCanvas()
-    canvas.toBlob(function (blob){
-        const reader = new FileReader()
-        reader.readAsDataURL(blob)
-        console.log(blob)
-        reader.onloadend = function (){
-            const base64data = reader.result
-            console.log("base64data", base64data)
-            const arr = base64data.split(',');
-            const mime=arr[0].match(/:(.*?);/)[1]
-            const data=arr[1]
-            const dataStr = window.atob(data);
-                    let n = dataStr.length;
-                    const dataArr = new Uint8Array(n);
-                    while(n--)
-            {
-                dataArr[n]=dataStr.charCodeAt(n)
-            }
-                var file=new File([dataArr], 'FileR.png',{type:mime})
-                console.log(file)
-
-            var formData = new FormData()
-            formData.append('image', file)
-
-            var basePath = $('body').data('basePath')
-            console.log("path", basePath)
-            $.ajax({
-               
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: "POST",
-                data: formData,
-                url: basePath+'/crop_image',
-                contentType: false,
-                processData: false,
-                success: function(data) { 
-                    $("#div-modal").modal('hide')
-                    alert("imagen subida")
-                },
-            })
-        }
-    })
-})*/
-
 $btncrop.addEventListener("click", function (){
     const canvas = cropper.getCroppedCanvas()
+    const cropData = cropper.getData()
+    console.log("btncrop",canvas)
+    console.log("btncrop",cropData)
+    toBlob(canvas)
+})
+
+function toBlob(canvas){
     canvas.toBlob(function (blob){
         const reader = new FileReader()
         reader.readAsDataURL(blob)
-        console.log(blob)
         reader.onloadend = function (){
             const base64data = reader.result
-            console.log("base64data", base64data)
-            const arr = base64data.split(',');
+            const arr = base64data.split(',')
             const mime=arr[0].match(/:(.*?);/)[1]
             const data=arr[1]
-            const dataStr = window.atob(data);
-                    let n = dataStr.length;
-                    const dataArr = new Uint8Array(n);
+            const dataStr = window.atob(data)
+                    let n = dataStr.length
+                    const dataArr = new Uint8Array(n)
                     while(n--)
             {
                 dataArr[n]=dataStr.charCodeAt(n)
             }
-                var file=new File([dataArr], 'FileR.png',{type:mime})
+            const originalFileName = $file.files[0].name
+            const newFileName = originalFileName.replace(/\.[^/.]+$/, '') + '_Recortada.png'
+            const file = new File([dataArr], newFileName, {type: mime})
                 console.log(file)
                 formData(file)
                 resize(file)
-            //base64ToImage(base64data)
-
         }
     })
-})
+}
 
 function base64ToImage(base64data){
-    const arr = base64data.split(',');
+    const arr = base64data.split(',')
     const mime=arr[0].match(/:(.*?);/)[1]
     const data=arr[1]
-    const dataStr = window.atob(data);
-            let n = dataStr.length;
-            const dataArr = new Uint8Array(n);
+    const dataStr = window.atob(data)
+            let n = dataStr.length
+            const dataArr = new Uint8Array(n)
             while(n--)
     {
         dataArr[n]=dataStr.charCodeAt(n)
     }
-        var file=new File([dataArr], 'FileM.png',{type:mime})
+    const originalFileName = $file.files[0].name
+    const newFileName = originalFileName.replace(/\.[^/.]+$/, '') + '_Miniatura.png'
+    const file = new File([dataArr], newFileName, {type: mime})
         console.log(file)
         formData(file)
 }
@@ -160,8 +121,7 @@ function formData(file){
 function ajax(formData){
     var basePath = $('body').data('basePath')
     console.log("path", basePath)
-    $.ajax({
-               
+    $.ajax({    
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -174,7 +134,6 @@ function ajax(formData){
             $("#div-modal").modal('hide')
         },
     })
-   
 }
 
 let cropper = null

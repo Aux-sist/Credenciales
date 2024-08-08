@@ -10,41 +10,74 @@ use Illuminate\Support\Facades\DB;
 
 class GoogleDriveController extends Controller
 {
+    public function guardar_muchos(ValidacionLibro $request)
+    {
+        foreach($request->file('foto_up2') as $foto){
+            $name=$foto->getClientOriginalName();
+            $original = pathinfo($name, PATHINFO_FILENAME) . '_original.' . pathinfo($name, PATHINFO_EXTENSION);
+            $recortado = pathinfo($name, PATHINFO_FILENAME) . '_recortada.'."png";
+            $miniatura = pathinfo($name, PATHINFO_FILENAME) . '_miniatura.' . "png";
+            $foto->move(storage_path("imagen"),$name);
+            $driveService = new DriveService();
+            $driveService->iniciarConfiguracion();
+            $driveFolder= $driveService->crearDirectorio($name,);
+            $folderID=$driveFolder->getId();
+            $archivosubido= $driveService->subirArchivo($original, storage_path("imagen")."/".$name,$folderID);
+            $archivosubidoR= $driveService->subirArchivo($recortado, storage_path("imagen")."/".$recortado,$folderID);
+            $archivosubidoM= $driveService->subirArchivo($miniatura, storage_path("imagen")."/".$miniatura,$folderID);
+            unlink(storage_path("imagen")."/".$name);
+            unlink(storage_path("imagen")."/".$recortado);
+            unlink(storage_path("imagen")."/".$miniatura);
+            $libro = new Libro();
+                  $libro->create([
+                                  'titulo'=>$request->titulo,
+                                  'isbn'=>$request->isbn,
+                                  'autor'=>$request->autor,
+                                  'cantidad'=>$request->cantidad,
+                                  'editorial'=>$request->editorial,
+                                  'foto'=>$driveFolder->getId(),
+                                  'drive_id_original'=>$archivosubido->getId(),
+                                  'drive_id_recortada'=>$archivosubidoR->getId(),
+                                  'drive_id_miniatura'=>$archivosubidoM->getId(),
+                                 ]);
+          }
+        return redirect()->route('libro')->with('mensaje','Los libros se han creado');
+    }
     public function guardar(ValidacionLibro $request)
     {
-        $recortado = "FileR.png";
-        $miniatura = "FileM.png";
+  
         $archivo = $request->file('foto_up');
-        $names=$archivo->getClientOriginalName();
-        $archivo->move(storage_path("imagen"),$names);
+        $name=$archivo->getClientOriginalName();
+        $original = pathinfo($name, PATHINFO_FILENAME) . '_original.' . pathinfo($name, PATHINFO_EXTENSION);
+        $recortado = pathinfo($name, PATHINFO_FILENAME) . '_recortada.'."png";
+        $miniatura = pathinfo($name, PATHINFO_FILENAME) . '_miniatura.' . "png";
+        $archivo->move(storage_path("imagen"),$name);
         $driveService = new DriveService();
         $driveService->iniciarConfiguracion();
-        $driveFolder= $driveService->crearDirectorio($names,);
+        $driveFolder= $driveService->crearDirectorio($name);
         $folderID=$driveFolder->getId();
-        $name=$names.'_original';
-        $archivosubido= $driveService->subirArchivo($name, storage_path("imagen")."/".$names,$folderID);
-        $nameR=$names.'_recortada';
-        $archivosubidoR= $driveService->subirArchivo($nameR, storage_path("imagen")."/".$recortado,$folderID);
-        $nameM=$names.'_miniatura';
-        $archivosubidoM= $driveService->subirArchivo($nameM, storage_path("imagen")."/".$miniatura,$folderID);
+        $archivosubido= $driveService->subirArchivo($original, storage_path("imagen")."/".$name,$folderID);
+        $archivosubidoR= $driveService->subirArchivo($recortado, storage_path("imagen")."/".$recortado,$folderID);
+        $archivosubidoM= $driveService->subirArchivo($miniatura, storage_path("imagen")."/".$miniatura,$folderID);
 
-        unlink(storage_path("imagen")."/".$names);
+        unlink(storage_path("imagen")."/".$name);
         unlink(storage_path("imagen")."/".$recortado);
         unlink(storage_path("imagen")."/".$miniatura);
 
         $libro = new Libro();
         $libro->create([
-                        'titulo'=>$request->titulo , 
-                        'isbn'=>$request->isbn, 
+                        'titulo'=>$request->titulo,
+                        'isbn'=>$request->isbn,
                         'autor'=>$request->autor,
-                        'cantidad'=>$request->cantidad, 
-                        'editorial'=>$request->editorial, 
+                        'cantidad'=>$request->cantidad,
+                        'editorial'=>$request->editorial,
                         'foto'=>$driveFolder->getId(),
                         'drive_id_original'=>$archivosubido->getId(),
                         'drive_id_recortada'=>$archivosubidoR->getId(),
-                        'drive_id_miniatura'=>$archivosubidoM->getId(),]);
+                        'drive_id_miniatura'=>$archivosubidoM->getId(),
+                       ]);
 
-        return redirect()->route('libro')->with('mensaje','el libro se ha creado');
+        return redirect()->route('libro')->with('mensaje','El libro se ha creado');
     }
 
     public function mostrar(Request $request)
@@ -52,7 +85,7 @@ class GoogleDriveController extends Controller
         $idDrive = DB::table('libro')->where('id', $request->id)->value('drive_id_original');
         $driveService = new DriveService();
         $driveService->iniciarConfiguracion();
-        $driveService->visualizar($idDrive); 
+        $driveService->visualizar($idDrive);
     }
 
     public function actualizar(Request $request, $id)
@@ -61,23 +94,21 @@ class GoogleDriveController extends Controller
         $driveService = new DriveService();
         $driveService->iniciarConfiguracion();
         $driveService->eliminarArchivo($idDrive);
-        $recortado = "FileR.png";
-        $miniatura = "FileM.png";
         $archivo = $request->file('foto_up');
-        $names=$archivo->getClientOriginalName();
-        $archivo->move(storage_path("imagen"),$names);
+        $name=$archivo->getClientOriginalName();
+        $original = pathinfo($name, PATHINFO_FILENAME) . '_original.' . pathinfo($name, PATHINFO_EXTENSION);
+        $recortado = pathinfo($name, PATHINFO_FILENAME) . '_Recortada.'."png";
+        $miniatura = pathinfo($name, PATHINFO_FILENAME) . '_Miniatura.' . "png";    
+        $archivo->move(storage_path("imagen"),$name);
         $driveService = new DriveService();
         $driveService->iniciarConfiguracion();
-        $driveFolder= $driveService->crearDirectorio($names,);
+        $driveFolder= $driveService->crearDirectorio($name,);
         $folderID=$driveFolder->getId();
-        $name=$names.'_original';
-        $archivosubido= $driveService->subirArchivo($name, storage_path("imagen")."/".$names,$folderID);
-        $nameR=$names.'_recortada';
-        $archivosubidoR= $driveService->subirArchivo($nameR, storage_path("imagen")."/".$recortado,$folderID);
-        $nameM=$names.'_miniatura';
-        $archivosubidoM= $driveService->subirArchivo($nameM, storage_path("imagen")."/".$miniatura,$folderID);
+        $archivosubido= $driveService->subirArchivo($original, storage_path("imagen")."/".$name,$folderID);
+        $archivosubidoR= $driveService->subirArchivo($recortado, storage_path("imagen")."/".$recortado,$folderID);
+        $archivosubidoM= $driveService->subirArchivo($miniatura, storage_path("imagen")."/".$miniatura,$folderID);
 
-        unlink(storage_path("imagen")."/".$names);
+        unlink(storage_path("imagen")."/".$name);
         unlink(storage_path("imagen")."/".$recortado);
         unlink(storage_path("imagen")."/".$miniatura);
         
@@ -86,8 +117,9 @@ class GoogleDriveController extends Controller
         $libro->update(['titulo'=>$request->titulo , 
                         'isbn'=>$request->isbn, 
                         'autor'=>$request->autor,
-                        'cantidad'=>$request->cantidad, 
-                        'editorial'=>$request->editorial, 
+                        'cantidad'=>$request->cantidad,
+                        'editorial'=>$request->editorial,
+                        'foto'=>$driveFolder->getId(),
                         'drive_id_original'=>$archivosubido->getId(),
                         'drive_id_recortada'=>$archivosubidoR->getId(),
                         'drive_id_miniatura'=>$archivosubidoM->getId(),]);

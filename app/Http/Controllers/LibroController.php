@@ -28,7 +28,11 @@ class LibroController extends Controller
     {
         return view('libro.crear');
     }
-
+    
+    public function createvarious()
+    {
+        return view('libro.crear_varios');
+    }
     /**
      * Store a newly created resource in storage.
      *

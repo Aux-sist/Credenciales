@@ -10,7 +10,7 @@
                     <div class="modal-body">
                         <div class="img-container">
                             <div class="row">
-                                <div class="col-md-8">  
+                                <div id="imageContainer" class="col-md-8">
                                     <img id="img-original" class="img-fluid">
                                 </div>
                                 <div class="col-md-4">

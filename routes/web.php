@@ -55,7 +55,9 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function (){
 //Rutas libro//
 Route::get('libro', [LibroController::class, 'index'])->name('libro');
 Route::get('libro/crear', [LibroController::class, 'create'])->name('crear_libro');
+Route::get('libro/crear_varios', [LibroController::class, 'createvarious'])->name('crear_libros');
 Route::post('libro', [GoogleDriveController::class, 'guardar'])->name('guardar_libro');
+Route::post('libro_muchos', [GoogleDriveController::class, 'guardar_muchos'])->name('guardar_libros');
 Route::post('libro/{libro}', [LibroController::class, 'show'])->name('ver_libro');
 Route::get('libro/{id}/editar', [LibroController::class, 'edit'])->name('editar_libro');
 Route::put('libro/{id}', [GoogleDriveController::class, 'actualizar'])->name('actualizar_libro');

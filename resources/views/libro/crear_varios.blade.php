@@ -28,15 +28,15 @@ Libros
     <div class="col-lg-12">
     @include('includes.form-error')
         @include('includes.mensaje')
-        <div class="box box-success">
+        <div class="box box-danger">
             <div class="box-header with-border">
-                <h3 class="box-title">Crear Libro</h3>
+                <h3 class="box-title">Crear Varios Libros</h3>
                 <a href="{{route('libro')}}" class="btn btn-info btn-sm pull-right">Listado</a>
             </div> 
-            <form action='{{route("guardar_libro")}}' id="form-general"  class="form-horizontal" method="POST" enctype="multipart/form-data">
+            <form action='{{route("guardar_libros")}}' id="form-general"  class="form-horizontal" method="POST" enctype="multipart/form-data">
                 @csrf 
             <div class="box-body">
-                    @include('libro.form')
+                    @include('libro.form_varios')
                     <span id="span-uploaded"></span>
             </div>
                 <div class="box-footer">
@@ -54,5 +54,5 @@ Libros
     
 </div>
 <script src="/assets/js/cropper-js/cropper.js"></script>
-<script type="module" src="{{asset('assets/pages/scripts/libro/label.js')}}" type="text/javascript"></script>
+<script type="module" src="{{asset('assets/pages/scripts/libro/label copy.js')}}" type="text/javascript"></script>
 @endsection
