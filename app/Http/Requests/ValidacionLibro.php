@@ -31,6 +31,7 @@ class ValidacionLibro extends FormRequest
             'editorial'=>'nullable|max:50',
             'foto_up'=>'nullable|image',
             'foto_up2[]'=>'nullable|image|mimes: jpg, jpeg',
+            'drive_id_carpeta'=>'nullable|max:100',
             'drive_id_original'=>'nullable|max:100',
             'drive_id_recortada'=>'nullable|max:100',
             'drive_id_miniatura'=>'nullable|max:100',

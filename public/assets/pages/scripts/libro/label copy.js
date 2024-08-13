@@ -209,7 +209,26 @@ $modal.addEventListener("shown.bs.modal", function (){
 
 $modal.addEventListener("hidden.bs.modal", function (){
     console.log("modal.on-hide")
-    $('.modal-backdrop').remove();
+    $('.modal-backdrop').remove()
     cropper.destroy()
     cropper = null
+})
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('form-general')
+    const btnSubmit= document.getElementById('btn-submit')
+    const btnCancel = document.getElementById('btn-cancel')
+    
+    function disableButtons() {
+        if (btnSubmit) {
+            btnSubmit.disabled = true;
+        }
+        if (btnCancel) {
+            btnCancel.disabled = true;
+        }
+    }
+    
+    form.addEventListener('submit', function(event) {
+        disableButtons()
+        })
 })

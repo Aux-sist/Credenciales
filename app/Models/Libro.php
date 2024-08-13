@@ -11,7 +11,7 @@ class Libro extends Model
 {
     protected $table = "libro";
     protected $fillable = ['titulo', 'isbn', 'autor', 'cantidad',
-    'editorial', 'foto','drive_id_original','drive_id_recortada','drive_id_miniatura'];
+    'editorial', 'foto', 'drive_id_carpeta','drive_id_original','drive_id_recortada','drive_id_miniatura'];
     protected $guarded = ['id'];
 
     public static function setCaratula($foto, $actual=false){
